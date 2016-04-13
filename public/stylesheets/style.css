@@ -1,0 +1,21 @@
+.login-top
+{
+	margin-top:70px;
+}
+
+.form-right
+{
+float: right;
+}
+
+.link
+{
+	color:green;
+	float:right;
+}
+
+.link:hover{
+	color:darkgreen;
+	cursor:pointer;
+	text-decoration: underline;
+}
