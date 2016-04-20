@@ -1,0 +1,26 @@
+.top-menu{ background-image: url(../images/taskbar-bg.png);}
+#fresh_logo_link img{margin-top: -5px;}
+.greeting span,a{font-size:14px !important;color: white !important;}
+.greeting a{text-decoration: underline;}
+
+.login-top
+{
+	margin-top:70px;
+}
+button.ng-disabled{background-color:#cccccc;}
+.form-right
+{
+float: right;
+}
+
+.link
+{
+	color:#000000 !important;
+	float:right;
+}
+
+.link:hover{
+	color:darkgreen;
+	cursor:pointer;
+	text-decoration: underline;
+}

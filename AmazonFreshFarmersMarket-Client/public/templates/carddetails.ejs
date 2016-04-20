@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>
+<!-- Loading the AngularJS file from /public/angularJS folder -->
+<script src="angularjs/angularsignup.js"></script>
+</head>
+<body ng-app="signup">
+<br/>
+<br/>
+<div class="container" ng-controller="signup">
+	<div class="row">
+		<div class="col-md-4">
+		<form name="frmcarddetails">
+			
+		<br> <input type="number" name="cardno" placeholder = "Enter Credit Card #" 
+			ng-model="cardno" ng-minlength = "12" ng-maxlength = "12" ng-pattern="/^[0-9]+$/" ng-required="true"/>
+	
+		<br> <input type="text" name="cardholdername" placeholder = "Name as it appears on credit card" 
+			ng-model="cardholdername" ng-required="true"/>
+	
+		
+		<br>Expiration Date:
+		 <select name="day" id="month"  class="form-control" ng-model = "expirationmonth" ng-required="true">
+			<option value="01" selected>01</option>
+			<option value="02">02</option>
+			<option value="03">03</option>
+			<option value="04">04</option>
+			<option value="05">05</option>
+			<option value="06">06</option>
+			<option value="07">07</option>
+			<option value="08">08</option>
+			<option value="09">09</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		 </select>
+		 
+		 <select name="year" id="year" class="form-control"   ng-model = "expirationyear" ng-required="true">
+			<option value="2016" selected>2016</option>
+			<option value="2017">2017</option>
+			<option value="2018">2018</option>
+			<option value="2019">2019</option>
+			<option value="2020">2020</option>
+		 </select>
+		 
+		<br><button class="btn btn-success pull-left" ng-disabled="frmcarddetails.$invalid" ng-click = "frmcarddetails.$valid && finalsignup()" >Sign up</button>
+	</form> 	
+		</div>	
+		</div>
+	</div>
+</body>
+</html>

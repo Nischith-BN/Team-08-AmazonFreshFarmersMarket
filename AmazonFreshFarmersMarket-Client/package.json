@@ -1,0 +1,15 @@
+{
+  "name": "AmazonFreshFarmersMarket-Client",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "connect-mongo": "^1.1.0",
+    "ejs": "*",
+    "express": "3.2.6",
+    "express-session": "^1.13.0"
+  }
+}
