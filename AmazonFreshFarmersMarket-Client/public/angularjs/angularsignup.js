@@ -12,7 +12,7 @@ amazonfresh.controller('signup', function($scope, $http,$rootScope,$state) {
 			return false;
 		}
 		$scope.IsMatchPassword=false;
-
+		alert("hi");
 		$http({
 			method : "POST",
 			url : '/createAccount',

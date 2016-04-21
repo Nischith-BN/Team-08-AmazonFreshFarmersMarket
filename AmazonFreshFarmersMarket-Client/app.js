@@ -5,7 +5,7 @@ var express = require('express')
 
 var mongoSessionConnectURL = "mongodb://localhost:27017/login";
 var expressSession = require("express-session");
-var mongoStore = require("connect-mongo")(expressSession);
+var mongoStore = require("connect-mongo/es5")(expressSession);
 var mongo = require("./routes/mongo");
 var index = require("./routes/index");
 var login = require("./routes/login");
