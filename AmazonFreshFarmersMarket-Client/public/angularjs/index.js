@@ -1,29 +1,83 @@
 var amazonfresh = angular.module('amazonfresh', [ 'ui.router' ]);
 amazonfresh.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
-	$stateProvider.state('login', {
+	$stateProvider.state('login', {	
 		url : '/',
-		templateUrl : 'templates/login.html'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+                templateUrl : 'templates/login.html',
+            },
+		}
+	})
+	.state('adminlogin',{
+		url:'/adminLogin',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+                templateUrl : 'templates/adminlogin.html',
+            },
+		}
 	})
 	.state('successful',{
 		url:'/afterLogin',
-		template: '<h1>Successfullogin</h1>'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+            	template: '<h1>Successfullogin</h1>'
+            },
+		}
 	})
 	.state('signup', {
 		url:'/createAccount',
-		templateUrl : 'templates/createaccount.ejs'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+                templateUrl : 'templates/createaccount.ejs'
+            }
+		}
 	})
 	.state('addressDetails',{
 		url:'/saveAddress',
-		templateUrl : 'templates/splashdelivery.ejs'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+            	templateUrl : 'templates/splashdelivery.ejs'
+            }
+		}
 	})
 	.state('cardDetails',{
 		url:'/saveCardDetails',
-		templateUrl : 'templates/carddetails.ejs'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+            	templateUrl : 'templates/carddetails.ejs'
+            }
+		}
+		
 	})
 	.state('customerHomepage',{
 		url:'/home',
-		templateUrl : 'templates/userhomepage.ejs'
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+            	templateUrl : 'templates/userhomepage.ejs'
+            }
+		}
 	});
 	$urlRouterProvider.otherwise('/');
 });

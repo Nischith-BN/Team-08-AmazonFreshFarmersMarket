@@ -3,7 +3,6 @@ amazonfresh.controller('login', function($scope, $http, $state,$rootScope) {
 	$scope.unexpected_error = true;
 	$rootScope.category="";
 	$scope.login = function() {
-		alert("hoooo");
 		$http({
 			method : "POST",
 			url : '/afterLogin',
@@ -38,6 +37,40 @@ amazonfresh.controller('login', function($scope, $http, $state,$rootScope) {
 		$state.transitionTo('signup');
 		$rootScope.category="farmer";
 	};
+	$scope.adminLogin = function() {
+		$state.transitionTo('adminlogin');
+		$rootScope.category="admin";
+	};
+	
+	$scope.adminLoginSubmit = function() {
+		$http({
+			method : "POST",
+			url : '/afterAdminLogin',
+			data : {
+				"email" : $scope.email,
+				"password" : $scope.password
+			}
+		}).success(function(data) {
+			//checking the response data for statusCode
+			if (data.statusCode == 403) {
+				$scope.invalid_login = false;
+				$scope.unexpected_error = true;
+			}
+			else if (data.statusCode == 401) {
+				$scope.invalid_login = true;
+				$scope.unexpected_error = false;
+			}
+			else
+				{
+				 $state.transitionTo('successful');
+				}
+		}).error(function(error) {
+			$scope.unexpected_error = false;
+			$scope.invalid_login = true;
+		});
+	};
+	
+	
 });
 
 
