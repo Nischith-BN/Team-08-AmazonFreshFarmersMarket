@@ -9,6 +9,7 @@ exports.createAccount = function(req,res)
 	var password = req.param("password");
 	var category = req.param("category");
 
+	//res.send({"statusCode":200})
 	var msg_payload = { 
 			"email" : email
 	};
@@ -40,6 +41,7 @@ exports.saveAddress = function(req,res)
 	var zipCode = req.param("zipCode");
 	var phoneNumber = req.param("phoneNumber");
 
+	//res.send({"statusCode":200})
 	if(req.session.category == "farmer")
 	{
 		var msg_payload = { 
@@ -83,6 +85,7 @@ exports.saveAddress = function(req,res)
 
 exports.saveCardDetails = function(req,res)
 {
+	//res.send({"statusCode":200})
 	var cardNumber = req.param("cardNumber");
 	var cardHolderName = req.param("cardHolderName");
 	var cardExpirationMonth = req.param("cardExpirationMonth");
@@ -122,7 +125,7 @@ exports.afterLogin = function(req,res)
 {
 	var email = req.param("email");
 	var password = req.param("password");
-
+	//res.send({"statusCode":200})
 	var msg_payload = { 
 			"email" : email,
 			"password" : password
@@ -143,7 +146,7 @@ exports.afterAdminLogin = function(req,res)
 {
 	var email = req.param("email");
 	var password = req.param("password");
-
+	//res.send({"statusCode":200});
 	var msg_payload = { 
 			"email" : email,
 			"password" : password
@@ -186,7 +189,6 @@ exports.logout = function(req,res)
 	req.session.destroy();
 	res.redirect('/');
 };
-
 
 
 
