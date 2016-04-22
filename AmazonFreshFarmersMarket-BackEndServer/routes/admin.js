@@ -57,10 +57,20 @@ exports.handle_listProductRequests_request = function(msg, callback){
 		}
 		else
 		{			
-			json_response ={
-					"statusCode" : 200,
-					"results" : results
-			};
+			if(results.length <= 0)
+			{
+				json_response ={
+						"statusCode" : 403,
+						"statusMessage" : "No pending requests"
+				};
+			}
+			else
+			{
+				json_response ={
+						"statusCode" : 200,
+						"results" : results
+				};
+			}
 		}
 		callback(null, json_response);
 	}, query);
@@ -83,10 +93,20 @@ exports.handle_listCustomerRequests_request = function(msg, callback){
 		}
 		else
 		{			
-			json_response ={
-					"statusCode" : 200,
-					"results" : results
-			};
+			if(results.length <= 0)
+			{
+				json_response ={
+						"statusCode" : 403,
+						"statusMessage" : "No pending requests"
+				};
+			}
+			else
+			{
+				json_response ={
+						"statusCode" : 200,
+						"results" : results
+				};
+			}
 		}
 		callback(null, json_response);
 	}, query);
@@ -125,7 +145,7 @@ exports.handle_approveProduct_request = function(msg, callback){
 	var productId = msg.productId;
 	var approved = 1;
 
-	var query = "update amazonfresh.product set approved='"+ approved +"' where product_id ='"+ productId +"'";
+	var query = "update amazonfresh.products set approved='"+ approved +"' where product_id ='"+ productId +"'";
 
 	mysql.fetchData(function(error, results) {
 		console.log("result");
@@ -209,7 +229,7 @@ exports.handle_rejectProduct_request = function(msg, callback){
 	var productId = msg.productId;
 	var approved = 2;
 
-	var query = "update amazonfresh.product set approved='"+ approved +"' where product_id ='"+ productId +"'";
+	var query = "update amazonfresh.products set approved='"+ approved +"' where product_id ='"+ productId +"'";
 
 	mysql.fetchData(function(error, results) {
 		console.log("result");
@@ -309,10 +329,20 @@ exports.handle_fetchRidesDetails_request = function(msg, callback){
 		}
 		else
 		{			
-			json_response ={
-					"statusCode" : 200,
-					"results" : results
-			};
+			if(results.length <= 0)
+			{
+				json_response ={
+						"statusCode" : 403,
+						"statusMessage" : "No rides to display"
+				};
+			}
+			else
+			{
+				json_response ={
+						"statusCode" : 200,
+						"results" : results
+				};
+			}
 		}
 		callback(null, json_response);
 	}, query);

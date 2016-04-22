@@ -66,7 +66,9 @@ exports.approveFarmer = function(req,res){
 
 exports.approveProduct = function(req,res){
 	var productId = req.param("productId");
-console.log(productId)
+
+	console.log("..................................");
+	console.log("productId"+productId);
 	var msg_payload = { 
 			"productId" : productId
 	};
@@ -103,6 +105,8 @@ exports.approveCustomer = function(req,res){
 exports.rejectFarmer = function(req,res){
 	var farmerId = req.param("farmerId");
 
+	console.log("'''''''''''''''''''''''''''''''''''''''''''''");
+	console.log("farmerId " + farmerId);
 	var msg_payload = { 
 			"farmerId" : farmerId
 	};

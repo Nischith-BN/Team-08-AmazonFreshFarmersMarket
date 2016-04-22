@@ -361,9 +361,9 @@ cnn.on('ready', function(){
 		});
 	});
 
-	cnn.queue('removeFarmer_queue', function(q){		
+	cnn.queue('rejectFarmer_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
-			admin.handle_removeFarmer_request(message, function(err,res){
+			admin.handle_rejectFarmer_request(message, function(err,res){
 				cnn.publish(m.replyTo, res, {
 					contentType:'application/json',
 					contentEncoding:'utf-8',

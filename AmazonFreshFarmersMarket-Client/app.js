@@ -5,7 +5,7 @@ var express = require('express')
 
 var mongoSessionConnectURL = "mongodb://localhost:27017/login";
 var expressSession = require("express-session");
-var mongoStore = require("connect-mongo/es5")(expressSession);
+var mongoStore = require("connect-mongo")(expressSession);
 var mongo = require("./routes/mongo");
 var index = require("./routes/index");
 var login = require("./routes/login");
@@ -45,29 +45,29 @@ if ('development' === app.get('env')) {
 
 
 //login
-app.get('/', routes.index);//done
-app.get('/login', routes.index);//done
-app.post('/afterLogin', login.afterLogin);//done
-app.post('/afterAdminLogin', login.afterAdminLogin);
-app.post('/logout', login.logout);//done
-app.post('/createAccount',login.createAccount);//done
-app.post('/saveAddress',login.saveAddress);//done
-app.get('/saveCardDetails',login.saveCardDetails);//done mongo part pending
-app.post('/saveFarmerDetails',login.saveFarmerDetails);//done mongo part pending
+app.get('/', routes.index);//Done - Tested
+app.get('/login', routes.index);//Done - Tested
+app.post('/afterLogin', login.afterLogin);//Pending - Mongo update,bcrypt
+app.post('/afterAdminLogin', login.afterAdminLogin);//Pending - Mongo update,bcrypt
+app.post('/logout', login.logout);//Pending - Testing,back navigation
+app.post('/createAccount',login.createAccount);//Done - Tested
+app.post('/saveAddress',login.saveAddress);//Done - Tested
+app.get('/saveCardDetails',login.saveCardDetails);//Pending - Mongo insert
+app.post('/saveFarmerDetails',login.saveFarmerDetails);//Pending - Mongo insert
 app.post('/deleteAccount',login.deleteAccount);
 
 //admin
-app.get('/listFarmerRequests',admin.listFarmerRequests);//integration pending
-app.get('/listProductRequests',admin.listProductRequests);//integration pending
-app.get('/listCustomerRequests',admin.listCustomerRequests);//integration pending
-app.post('/approveFarmer',admin.approveFarmer);//integration pending
-app.get('/approveProduct',admin.approveProduct);//integration pending
-app.get('/approveCustomer',admin.approveCustomer);//integration pending
-app.get('/rejectFarmer',admin.rejectFarmer);//integration pending
-app.get('/rejectProduct',admin.rejectProduct);//integration pending
-app.get('/rejectCustomer',admin.rejectCustomer);//integration pending
+app.get('/listFarmerRequests',admin.listFarmerRequests);//Done - Tested
+app.get('/listProductRequests',admin.listProductRequests);//Done - Tested
+app.get('/listCustomerRequests',admin.listCustomerRequests);//Done - Tested
+app.post('/approveFarmer',admin.approveFarmer);//Pending - Mongo update
+app.post('/approveProduct',admin.approveProduct);//Done - Tested
+app.post('/approveCustomer',admin.approveCustomer);//Pending - Mongo update
+app.post('/rejectFarmer',admin.rejectFarmer);//Done - Tested
+app.post('/rejectProduct',admin.rejectProduct);//Done - Tested
+app.post('/rejectCustomer',admin.rejectCustomer);//Done - Tested
 
-app.get('/viewCustomerAccount',admin.viewCustomerAccount);
+app.get('/viewCustomerAccount',admin.viewCustomerAccount);//To check what is it
 app.get('/fetchStatisticsData',admin.fetchStatisticsData);
 app.get('/fetchDeliveryDetails',admin.fetchDeliveryDetails);
 app.get('/fetchRidesDetails',admin.fetchRidesDetails);
@@ -76,7 +76,7 @@ app.get('/fetchBillDetails',admin.fetchBillDetails);
 
 //customer
 //app.post('/listCustomers',customer.listCustomers);
-app.post('/postReview',customer.postReview);
+app.post('/postReview',customer.postReview);//Bhargav
 
 //farmers
 //app.post('/listFarmers',farmer.listFarmers);
@@ -93,7 +93,7 @@ app.get('/viewProduct',product.viewProduct);
 app.post('/amendProductDetails',product.amendProductDetails);
 app.post('/searchProduct',product.searchProduct);
 app.post('/fetchProductDetails',product.fetchProductDetails);
-
+ 
 //billing
 app.post('/saveCartDetails',billing.saveCartDetails);
 app.post('/createBill',billing.createBill);
@@ -105,7 +105,6 @@ app.post('/placeOrder',billing.placeOrder);
 app.post('/createTrip',trip.createTrip);
 app.post('/listTripsOfTruck',trip.listTripsOfTruck);
 app.post('/listTripsOfDriver',trip.listTripsOfDriver);
-
 
 mongo.connect(mongoSessionConnectURL, function(){
 	console.log('Connected to mongo at: ' + mongoSessionConnectURL);

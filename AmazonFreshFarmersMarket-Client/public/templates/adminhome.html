@@ -16,7 +16,7 @@
 	<div class="panel-heading">Farmers Pending Approvals</div>
 	<div class="panel-body">
 		 <ul class="list-group">
-<li class="list-group-item list-group-item-info" ng-repeat="x in listFarmerApprovals"><a class="reqlink"  ng-click="showFarmerDetail($index);">{{x.firstname}}&nbsp;&nbsp;{{x.lastname}}</a><br/><center>
+<li class="list-group-item list-group-item-info" ng-hide="hideFarmer" ng-repeat="x in listFarmerApprovals"><a class="reqlink"  ng-click="showFarmerDetail($index);">{{x.firstname}}&nbsp;&nbsp;{{x.lastname}}</a><br/><center>
 <button type="button" class="btn btn-default btn-sm btnaccept" ng-click="approveFarmer(x.farmer_id);"><span class="glyphicon glyphicon-ok"></span>Approve</button>
 	 <button type="button" class="btn btn-default btn-sm btnreject" ng-click="rejectFarmer(x.farmer_id);"><span class="glyphicon glyphicon-remove"></span>Reject</button></center></li>
 	 </ul>
@@ -31,7 +31,7 @@
 	<div class="panel-heading">Customers' Pending Approvals</div>
 	<div class="panel-body">
 		<ul class="list-group">
-	<li class="list-group-item list-group-item-info" ng-repeat="x in listCustomerApprovals"><a class="reqlink"  ng-click="showCustomerDetail($index);">{{x.firstname}}&nbsp;&nbsp;{{x.lastname}}</a><br/><center>
+	<li class="list-group-item list-group-item-info" ng-hide="hideCustomer" ng-repeat="x in listCustomerApprovals"><a class="reqlink"  ng-click="showCustomerDetail($index);">{{x.firstname}}&nbsp;&nbsp;{{x.lastname}}</a><br/><center>
 	<button type="button" class="btn btn-default btn-sm btnaccept" ng-click="approveCustomer(x.customer_id);"><span class="glyphicon glyphicon-ok"></span>Approve</button>
 	 <button type="button" class="btn btn-default btn-sm btnreject" ng-click="rejectCustomer(x.customer_id);"><span class="glyphicon glyphicon-remove"></span>Reject</button></center></li>
 	 </ul>
@@ -46,7 +46,7 @@
 	<div class="panel-heading">Products' Pending Approvals</div>
 	<div class="panel-body">
 		 <ul class="list-group">
-	 <li class="list-group-item list-group-item-info" ng-repeat="x in listProductApprovals"><a ng-click="showProductDetail($index);" class="reqlink" >{{x.product_name}}</a><br/><center>
+	 <li class="list-group-item list-group-item-info" ng-hide="hideProduct" ng-repeat="x in listProductApprovals"><a ng-click="showProductDetail($index);" class="reqlink" >{{x.product_name}}</a><br/><center>
 	 <button type="button" class="btn btn-default btn-sm btnaccept" ng-click="approveProduct(x.product_id);"><span class="glyphicon glyphicon-ok"></span>Approve</button>
 	 <button type="button" class="btn btn-default btn-sm btnreject" ng-click="rejectProduct(x.product_id);"><span class="glyphicon glyphicon-remove"></span>Reject</button></center></li>
 	 </ul>

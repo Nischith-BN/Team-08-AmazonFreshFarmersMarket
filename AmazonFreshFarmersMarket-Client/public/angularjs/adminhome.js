@@ -3,15 +3,17 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		$scope.showFarmerModal = false;
 		$scope.showCustomerModal = false;
 		$scope.showProductModal = false;
-		
+		$scope.hideFarmer = false;
 		$http({
 			method : "GET",
 			url : '/listFarmerRequests',
 		}).success(function(data) {
+			
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-				
+				$scope.hideFarmer = true;
 				$scope.statusMessageFarmer = data.statusMessage;
+				
 			}
 			else if (data.statusCode == 401) {
 				
@@ -19,10 +21,8 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 			}
 			else
 				{
-				
+			
 				 $scope.listFarmerApprovals = data.results;
-				 alert($scope.listFarmerApprovals)
-				 
 
 				}
 		}).error(function(error) {
@@ -32,7 +32,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 	}
 
 	$scope.initCustomerApprovals = function() {
-		
+		$scope.hideCustomer = false;
 		$scope.norequests = true;
 		$http({
 			method : "GET",
@@ -40,7 +40,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-				
+				$scope.hideCustomer = true;
 				$scope.statusMessageCustomer = data.statusMessage;
 			}
 			else if (data.statusCode == 401) {
@@ -59,14 +59,14 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		});
 	}
 	$scope.initProductApprovals = function() {
-		
+		$scope.hideProduct = false;
 		$http({
 			method : "GET",
 			url : '/listProductRequests',
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-				
+				$scope.hideProduct = true;
 				$scope.statusMessageProduct = data.statusMessage;
 			}
 			else if (data.statusCode == 401) {
@@ -86,7 +86,6 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 // Approval Acceptance Functions
 	$scope.approveFarmer = function(farmer_id) {
 		
-		alert(farmer_id)
 		$http({
 			method : "POST",
 			url : '/approveFarmer',
@@ -95,10 +94,12 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 			}
 		}).success(function(data) {
 			//checking the response data for statusCode
-			if (data.statusCode == 403) {
-				
+			
+			if (data.statusCode == 403) {	
+				$scope.initFarmerApprovals();
 			}
 			else if (data.statusCode == 401) {
+				
 				$scope.unexpected_error = false;
 			}
 			else
@@ -114,7 +115,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		
 		$scope.unexpected_error = true;
 		$http({
-			method : "GET",
+			method : "POST",
 			url : '/approveCustomer',
 			data : {
 				"customerId":customer_id
@@ -122,7 +123,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-			
+				$scope.initCustomerApprovals();
 			}
 			else if (data.statusCode == 401) {
 				$scope.unexpected_error = false;
@@ -140,7 +141,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		
 		$scope.unexpected_error = true;
 		$http({
-			method : "GET",
+			method : "POST",
 			url : '/approveProduct',
 			data : {
 				"productId":product_id
@@ -148,7 +149,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-		
+				$scope.initProductApprovals();
 			}
 			else if (data.statusCode == 401) {
 				$scope.unexpected_error = false;
@@ -167,7 +168,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		
 		$scope.unexpected_error = true;
 		$http({
-			method : "GET",
+			method : "POST",
 			url : '/rejectFarmer',
 			data : {
 				"farmerId":farmer_id
@@ -175,7 +176,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-				
+				$scope.initFarmerApprovals();
 			}
 			else if (data.statusCode == 401) {
 				$scope.unexpected_error = false;
@@ -193,7 +194,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		
 		$scope.unexpected_error = true;
 		$http({
-			method : "GET",
+			method : "POST",
 			url : '/rejectCustomer',
 			data : {
 				"customerId":customer_id
@@ -201,7 +202,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-			
+				$scope.initCustomerApprovals();
 			}
 			else if (data.statusCode == 401) {
 				$scope.unexpected_error = false;
@@ -219,7 +220,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		
 		$scope.unexpected_error = true;
 		$http({
-			method : "GET",
+			method : "POST",
 			url : '/rejectProduct',
 			data : {
 				"productId":product_id
@@ -227,7 +228,7 @@ amazonfresh.controller('admin', function($scope, $http, $state, $rootScope) {
 		}).success(function(data) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
-		
+				$scope.initProductApprovals();
 			}
 			else if (data.statusCode == 401) {
 				$scope.unexpected_error = false;
