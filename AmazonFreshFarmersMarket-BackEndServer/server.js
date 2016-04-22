@@ -25,9 +25,9 @@ cnn.on('ready', function(){
 		});
 	});
 
-	cnn.queue('signup_queue', function(q){
+	cnn.queue('saveCardDetails_queue', function(q){
 		q.subscribe(function(message, headers, deliveryInfo, m){
-			login.handle_signup_request(message, function(err,res){
+			login.handle_saveCardDetails_request(message, function(err,res){
 				cnn.publish(m.replyTo, res, {
 					contentType:'application/json',
 					contentEncoding:'utf-8',
@@ -36,6 +36,18 @@ cnn.on('ready', function(){
 			});
 		});
 	});
+	
+	cnn.queue('saveFarmerDetails_queue', function(q){
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			login.handle_saveFarmerDetails_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});	
 
 	cnn.queue('login_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
@@ -159,7 +171,7 @@ cnn.on('ready', function(){
 
 	cnn.queue('listAllProducts_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
-			product.handle_listProducts_request(message, function(err,res){
+			product.handle_listAllProducts_request(message, function(err,res){
 				cnn.publish(m.replyTo, res, {
 					contentType:'application/json',
 					contentEncoding:'utf-8',
@@ -349,9 +361,44 @@ cnn.on('ready', function(){
 		});
 	});
 
+	cnn.queue('removeFarmer_queue', function(q){		
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			admin.handle_removeFarmer_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});
+
+	cnn.queue('rejectProduct_queue', function(q){		
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			admin.handle_rejectProduct_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});
+
+	cnn.queue('rejectCustomer_queue', function(q){		
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			admin.handle_rejectCustomer_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});
 	cnn.queue('viewProduct_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
-			admin.handle_viewProduct_request(message, function(err,res){
+			product.handle_viewProduct_request(message, function(err,res){
 				cnn.publish(m.replyTo, res, {
 					contentType:'application/json',
 					contentEncoding:'utf-8',
