@@ -44,3 +44,9 @@ exports.searchBill = function(req,res){
 exports.placeOrder = function(req,res){
 
 };
+
+exports.saveCartDetails = function(req,res){
+
+};
+
+

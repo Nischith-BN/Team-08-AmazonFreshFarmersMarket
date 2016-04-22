@@ -12,7 +12,7 @@ amazonfresh.controller('signup', function($scope, $http,$rootScope,$state) {
 			return false;
 		}
 		$scope.IsMatchPassword=false;
-		alert("hi");
+	
 		$http({
 			method : "POST",
 			url : '/createAccount',
@@ -25,17 +25,16 @@ amazonfresh.controller('signup', function($scope, $http,$rootScope,$state) {
 			}
 		}).success(function(data) {
 			if (data.statusCode == 401) {
-				$scope.invalid_login = false;
-				$scope.unexpected_error = true;
+				$scope.statusMessage = data.statusMessage;
+				
 			}
 			else if(data.statusCode==403){
-				$scope.IsRegistered=true;
+				$scope.statusMessage = data.statusMessage;
 			}
 			else
 				$state.transitionTo("addressDetails"); 
 		}).error(function(error) {
-			$scope.unexpected_error = false;
-			$scope.invalid_login = true;
+			$scope.statusMessage = data.statusMessage;
 		});
 	};
 

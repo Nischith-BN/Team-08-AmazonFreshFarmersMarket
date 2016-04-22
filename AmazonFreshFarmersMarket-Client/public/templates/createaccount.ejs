@@ -26,7 +26,7 @@
 						ng-model="verifyemail" ng-required="true"/>
 					</div>
 					<span ng-show="IsMatchEmail">Emails have to match!</span>
-					<span ng-show="IsRegistered">Email is already registered!</span>
+					<span >{{statusMessage}}</span>
 					<div>	
 					<br> <input type="password" name="password" placeholder = "Enter Password" 
 						ng-model="password" ng-minlength="5" ng-maxlength="10" ng-required="true"/>

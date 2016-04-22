@@ -1,6 +1,6 @@
 amazonfresh.controller('login', function($scope, $http, $state,$rootScope) {
 	$scope.invalid_login = true;
-	$scope.unexpected_error = true;
+	
 	$rootScope.category="";
 	$scope.login = function() {
 		$http({
@@ -14,11 +14,11 @@ amazonfresh.controller('login', function($scope, $http, $state,$rootScope) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
 				$scope.invalid_login = false;
-				$scope.unexpected_error = true;
+				$scope.statusMessage = data.statusMessage;
 			}
 			else if (data.statusCode == 401) {
 				$scope.invalid_login = true;
-				$scope.unexpected_error = false;
+				$scope.statusMessage = data.statusMessage;
 			}
 			else
 				{
@@ -54,15 +54,16 @@ amazonfresh.controller('login', function($scope, $http, $state,$rootScope) {
 			//checking the response data for statusCode
 			if (data.statusCode == 403) {
 				$scope.invalid_login = false;
-				$scope.unexpected_error = true;
+				$scope.statusMessage = data.statusMessage;
+				
 			}
 			else if (data.statusCode == 401) {
 				$scope.invalid_login = true;
-				$scope.unexpected_error = false;
+				$scope.statusMessage = data.statusMessage;
 			}
 			else
 				{
-				 $state.transitionTo('successful');
+				 $state.transitionTo('adminsuccessful');
 				}
 		}).error(function(error) {
 			$scope.unexpected_error = false;

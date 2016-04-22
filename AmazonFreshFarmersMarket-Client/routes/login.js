@@ -9,7 +9,6 @@ exports.createAccount = function(req,res)
 	var password = req.param("password");
 	var category = req.param("category");
 
-	//res.send({"statusCode":200})
 	var msg_payload = { 
 			"email" : email
 	};
@@ -41,51 +40,20 @@ exports.saveAddress = function(req,res)
 	var zipCode = req.param("zipCode");
 	var phoneNumber = req.param("phoneNumber");
 
-	//res.send({"statusCode":200})
-	if(req.session.category == "farmer")
-	{
-		var msg_payload = { 
-				"email" : req.session.email,
-				"firstName" : req.session.firstName,
-				"lastName" : req.session.lastName,
-				"password" : req.session.password,
-				"category" : req.session.category,
+	req.session.streetAddress = streetAddress;
+	req.session.city = city;
+	req.session.state = state;
+	req.session.zipCode = zipCode;
+	req.session.phoneNumber = phoneNumber;
 
-				"streetAddress" : streetAddress,
-				"city" : city,
-				"state" : state,
-				"zipCode" : zipCode,
-				"phoneNumber" : phoneNumber		
-		};
-
-		mq_client.make_request('signup_queue',msg_payload, function(err,results){
-			if(err){
-				throw err;
-			}
-			else 
-			{
-				res.send(results);						
-			}  
-		});	
-	}
-	else
-	{
-		req.session.streetAddress = streetAddress;
-		req.session.city = city;
-		req.session.state = state;
-		req.session.zipCode = zipCode;
-		req.session.phoneNumber = phoneNumber;
-
-		results = {
-				"statusCode" : 200
-		};
-		res.send(results);
-	}
+	results = {
+			"statusCode" : 200
+	};
+	res.send(results);
 };
 
 exports.saveCardDetails = function(req,res)
 {
-	//res.send({"statusCode":200})
 	var cardNumber = req.param("cardNumber");
 	var cardHolderName = req.param("cardHolderName");
 	var cardExpirationMonth = req.param("cardExpirationMonth");
@@ -110,7 +78,42 @@ exports.saveCardDetails = function(req,res)
 			"cardExpirationYear" : cardExpirationYear,			
 	};
 
-	mq_client.make_request('signup_queue',msg_payload, function(err,results){
+	mq_client.make_request('saveCardDetails_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});	
+};
+
+exports.saveFarmerDetails = function(req,res)
+{
+	var video = req.param("video");
+	var image = req.param("image");
+	var description = req.param("description");
+
+	var msg_payload = { 
+			"email" : req.session.email,
+			"firstName" : req.session.firstName,
+			"lastName" : req.session.lastName,
+			"password" : req.session.password,
+			"category" : req.session.category,
+
+			"streetAddress" : req.session.streetAddress,
+			"city" : req.session.city,
+			"state" : req.session.state,
+			"zipCode" : req.session.zipCode,
+			"phoneNumber" : req.session.phoneNumber,
+
+			"video" : video,
+			"image" : image,
+			"description" : description			
+	};
+
+	mq_client.make_request('saveFarmerDetails_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
@@ -125,7 +128,7 @@ exports.afterLogin = function(req,res)
 {
 	var email = req.param("email");
 	var password = req.param("password");
-	//res.send({"statusCode":200})
+
 	var msg_payload = { 
 			"email" : email,
 			"password" : password
@@ -146,7 +149,7 @@ exports.afterAdminLogin = function(req,res)
 {
 	var email = req.param("email");
 	var password = req.param("password");
-	//res.send({"statusCode":200});
+
 	var msg_payload = { 
 			"email" : email,
 			"password" : password
@@ -167,7 +170,7 @@ exports.deleteAccount = function(req,res)
 {
 	var id = req.param("id");
 	var category = req.param("category");
-	
+
 	var msg_payload = { 
 			"id" : id,
 			"category" : category
@@ -189,6 +192,7 @@ exports.logout = function(req,res)
 	req.session.destroy();
 	res.redirect('/');
 };
+
 
 
 

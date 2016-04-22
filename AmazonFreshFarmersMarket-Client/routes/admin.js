@@ -66,7 +66,7 @@ exports.approveFarmer = function(req,res){
 
 exports.approveProduct = function(req,res){
 	var productId = req.param("productId");
-
+console.log(productId)
 	var msg_payload = { 
 			"productId" : productId
 	};
@@ -100,14 +100,50 @@ exports.approveCustomer = function(req,res){
 	});
 };
 
-exports.viewProduct = function(req,res){
+exports.rejectFarmer = function(req,res){
+	var farmerId = req.param("farmerId");
+
+	var msg_payload = { 
+			"farmerId" : farmerId
+	};
+
+	mq_client.make_request('rejectFarmer_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});
+};
+
+exports.rejectProduct = function(req,res){
 	var productId = req.param("productId");
 
 	var msg_payload = { 
 			"productId" : productId
 	};
 
-	mq_client.make_request('viewProduct_queue',msg_payload, function(err,results){
+	mq_client.make_request('rejectProduct_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});
+};
+
+exports.rejectCustomer = function(req,res){
+	var customerId = req.param("customerId");
+
+	var msg_payload = { 
+			"customerId" : customerId
+	};
+
+	mq_client.make_request('rejectCustomer_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}

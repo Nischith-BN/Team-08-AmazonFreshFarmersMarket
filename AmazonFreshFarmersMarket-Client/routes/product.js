@@ -1,6 +1,24 @@
 var ejs = require("ejs");
 var mq_client = require('../rpc/client');
 
+exports.viewProduct = function(req,res){
+	var productId = req.param("productId");
+
+	var msg_payload = { 
+			"productId" : productId
+	};
+
+	mq_client.make_request('viewProduct_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});
+};
+
 exports.createProduct = function(req,res){
 	var productName = req.param("productName");
 	var farmerID = req.param("farmerID");
@@ -46,8 +64,11 @@ exports.deleteProduct = function(req,res){
 };
 
 exports.listProducts = function(req,res){
-	var farmerId = req.param("farmerId");
-
+	console.log("*****************************************");
+	console.log(req.param("farmerId"));
+	
+	//var farmerId = req.param("farmerId");
+	var farmerId = "100000005" ;
 	var msg_payload = { 
 			"farmerId" : farmerId
 	};

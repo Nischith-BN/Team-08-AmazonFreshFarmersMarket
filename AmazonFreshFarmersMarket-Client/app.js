@@ -52,17 +52,21 @@ app.post('/afterAdminLogin', login.afterAdminLogin);
 app.post('/logout', login.logout);//done
 app.post('/createAccount',login.createAccount);//done
 app.post('/saveAddress',login.saveAddress);//done
-app.post('/saveCardDetails',login.saveCardDetails);//done
+app.get('/saveCardDetails',login.saveCardDetails);//done mongo part pending
+app.post('/saveFarmerDetails',login.saveFarmerDetails);//done mongo part pending
 app.post('/deleteAccount',login.deleteAccount);
 
 //admin
-app.get('/listFarmerRequests',admin.listFarmerRequests);
-app.get('/listProductRequests',admin.listProductRequests);
-app.get('/listCustomerRequests',admin.listCustomerRequests);
-app.get('/approveFarmer',admin.approveFarmer);
-app.get('/approveProduct',admin.approveProduct);
-app.get('/approveCustomer',admin.approveCustomer);
-app.get('/viewProduct',admin.viewProduct);
+app.get('/listFarmerRequests',admin.listFarmerRequests);//integration pending
+app.get('/listProductRequests',admin.listProductRequests);//integration pending
+app.get('/listCustomerRequests',admin.listCustomerRequests);//integration pending
+app.post('/approveFarmer',admin.approveFarmer);//integration pending
+app.get('/approveProduct',admin.approveProduct);//integration pending
+app.get('/approveCustomer',admin.approveCustomer);//integration pending
+app.get('/rejectFarmer',admin.rejectFarmer);//integration pending
+app.get('/rejectProduct',admin.rejectProduct);//integration pending
+app.get('/rejectCustomer',admin.rejectCustomer);//integration pending
+
 app.get('/viewCustomerAccount',admin.viewCustomerAccount);
 app.get('/fetchStatisticsData',admin.fetchStatisticsData);
 app.get('/fetchDeliveryDetails',admin.fetchDeliveryDetails);
@@ -71,25 +75,27 @@ app.get('/searchBillDetails',admin.searchBillDetails);
 app.get('/fetchBillDetails',admin.fetchBillDetails);
 
 //customer
-app.post('/listCustomers',customer.listCustomers);
+//app.post('/listCustomers',customer.listCustomers);
 app.post('/postReview',customer.postReview);
 
 //farmers
-app.post('/listFarmers',farmer.listFarmers);
+//app.post('/listFarmers',farmer.listFarmers);
 app.post('/amendFarmerDetails',farmer.amendFarmerDetails);
-app.post('/searchFarmer',farmer.searchFarmer);
+//app.post('/searchFarmer',farmer.searchFarmer);
 app.post('/fetchFarmerDetails',farmer.fetchFarmerDetails);
 
 //product
 app.post('/createProduct',product.createProduct);
 app.post('/deleteProduct',product.deleteProduct);
-app.post('/listProducts',product.listProducts);
-app.post('/listAllProducts',product.listAllProducts);
+app.get('/listProducts',product.listProducts);//integration pending
+app.get('/listAllProducts',product.listAllProducts);//integration pending
+app.get('/viewProduct',product.viewProduct);
 app.post('/amendProductDetails',product.amendProductDetails);
 app.post('/searchProduct',product.searchProduct);
 app.post('/fetchProductDetails',product.fetchProductDetails);
- 
+
 //billing
+app.post('/saveCartDetails',billing.saveCartDetails);
 app.post('/createBill',billing.createBill);
 app.post('/deleteBill',billing.deleteBill);
 app.post('/searchBill',billing.searchBill);
@@ -99,6 +105,7 @@ app.post('/placeOrder',billing.placeOrder);
 app.post('/createTrip',trip.createTrip);
 app.post('/listTripsOfTruck',trip.listTripsOfTruck);
 app.post('/listTripsOfDriver',trip.listTripsOfDriver);
+
 
 mongo.connect(mongoSessionConnectURL, function(){
 	console.log('Connected to mongo at: ' + mongoSessionConnectURL);
