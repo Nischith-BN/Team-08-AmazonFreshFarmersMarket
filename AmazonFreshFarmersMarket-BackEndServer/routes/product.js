@@ -26,7 +26,7 @@ exports.handle_listProducts_request = function(msg, callback){
 		{
 			json_response ={
 					"statusCode" : 401,
-					"results" : error.code
+					"statusMessage" : error.code
 			};
 		}
 		else
@@ -53,11 +53,12 @@ exports.handle_listAllProducts_request = function(msg, callback){
 		{
 			json_response ={
 					"statusCode" : 401,
-					"results" : error.code
+					"statusMessage" : error.code
 			};
 		}
 		else
-		{			
+		{	
+			
 			json_response ={
 					"statusCode" : 200,
 					"results" : results
@@ -68,27 +69,68 @@ exports.handle_listAllProducts_request = function(msg, callback){
 };
 
 exports.handle_viewProduct_request = function(msg, callback){
+	
+	var productId = 1;
+	var sqlResult = null;
 	console.log("exports.handle_viewProduct_request ~~~~~~~~~~~");
 	var json_response = {};
 
-	var query = "select * from amazonfresh.product ";
+	var query = "select * from amazonfresh.products where product_id ='" + productId +"'"; 
+	
+	console.log("Sql Query:"+query);
 
 	mysql.fetchData(function(error, results) {
 		if(error)
 		{
+			console.log("In error part");
+			console.log("In error part"+error);
 			json_response ={
 					"statusCode" : 401,
-					"results" : error.code
+					"statusMessage" :  "Unexpected error occured"
 			};
 		}
 		else
-		{			
-			json_response ={
-					"statusCode" : 200,
-					"results" : results
-			};
+		{	
+			console.log("Before mongo query");
+			sqlResult = results;
+			
+			mongo.connect(mongoURL, function(){
+				var coll = mongo.collection('products');
+				//console.log('email ' + email + ' password ' + password);
+				coll.findOne({product_Id: productId}, function(err, results){
+					
+					if (err) 
+					{
+						json_response ={
+								"statusCode" : 401,
+								"statusMessage" : "Unexpected error occured"
+						};
+					} else if(results) {
+						console.log(results);
+						
+							json_response ={
+									"statusCode" : 200,
+									"statusMessage" : "Login Successful",
+									"mongoResult" : results,
+									"sqlResult" : sqlResult
+							};
+							callback(null, json_response);
+						}
+					 else {
+						json_response ={
+								"statusCode" : 403,
+								"statusMessage" : "Invalid Product",
+								"results" : results
+						};
+						callback(null, json_response);
+					}
+					
+				});
+			});	
+			
+			
 		}
-		callback(null, json_response);
+	
 	}, query);
 };
 
