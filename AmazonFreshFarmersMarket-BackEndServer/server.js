@@ -539,31 +539,4 @@ cnn.on('ready', function(){
 			});
 		});
 	});	
-	
-	
-	cnn.queue('fetchFarmerDetails_queue', function(q){		
-		q.subscribe(function(message, headers, deliveryInfo, m){
-			farmer.handle_fetchFarmerDetails_request(message, function(err,res){
-				cnn.publish(m.replyTo, res, {
-					contentType:'application/json',
-					contentEncoding:'utf-8',
-					correlationId:m.correlationId
-				});
-			});
-		});
-	});	
-	cnn.queue('amendFarmerDetails_queue', function(q){		
-		q.subscribe(function(message, headers, deliveryInfo, m){
-			farmer.handle_amendFarmerDetails_request(message, function(err,res){
-				cnn.publish(m.replyTo, res, {
-					contentType:'application/json',
-					contentEncoding:'utf-8',
-					correlationId:m.correlationId
-				});
-			});
-		});
-	});
-	
-	
-	
 });
