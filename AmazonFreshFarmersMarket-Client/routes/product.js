@@ -20,18 +20,21 @@ exports.viewProduct = function(req,res){
 };
 
 exports.createProduct = function(req,res){
-	var productName = req.param("productName");
-	var farmerID = req.param("farmerID");
+	console.log("Retrieved parameter farmerId:");
+	var productName =req.param("productName");
+	var farmerId = req.param("farmerId");
 	var productPrice = req.param("productPrice");
 	var productDescription = req.param("productDescription");
-	var productQuantity = req.param("productQuantity");
-	
+	var productQuantity =req.param("productQuantity");
+	var image = req.param("image");
+	console.log("Retrieved parameter farmerId:"+farmerId);
 	var msg_payload = { 
 			"productName" : productName,
-			"farmerID" : farmerID,
+			"farmerId" : farmerId,
 			"productPrice" : productPrice,
 			"productDescription" : productDescription,
-			"productQuantity" : productQuantity
+			"productQuantity" : productQuantity,
+			"image":image
 	};
 
 	mq_client.make_request('createProduct_queue',msg_payload, function(err,results){
@@ -46,7 +49,7 @@ exports.createProduct = function(req,res){
 };
 
 exports.deleteProduct = function(req,res){
-	var productId = req.param("productId");
+	var productId = "100000000";//req.param("productId");
 
 	var msg_payload = { 
 			"productId" : productId
@@ -69,8 +72,9 @@ exports.listProducts = function(req,res){
 	
 	//var farmerId = req.param("farmerId");
 	var farmerId = "100000005" ;
+	var category = "admin";//req.param("category");
 	var msg_payload = { 
-			"farmerId" : farmerId
+			"farmerId" : farmerId,"category":category
 	};
 
 	mq_client.make_request('listProducts_queue',msg_payload, function(err,results){
@@ -100,10 +104,14 @@ exports.listAllProducts = function(req,res){
 };
 
 exports.amendProductDetails = function(req,res){
-	var productId = req.param("productId");
+	var productId ="100000000"; //req.param("productId");
+	var productName ="Carrot2"; //req.param("productName");
+	var productDescription ="changed Description1"; //req.param("productDescription");
 
 	var msg_payload = { 
-			"productId" : productId
+			"productId" : productId,
+			"productName" : productName,
+			"productDescription" : productDescription
 	};
 
 	mq_client.make_request('amendProductDetails_queue',msg_payload, function(err,results){
@@ -118,7 +126,7 @@ exports.amendProductDetails = function(req,res){
 };
 
 exports.searchProduct = function(req,res){
-	var searchString = req.param("searchString");
+	var searchString = "carrot";//req.param("searchString");
 
 	var msg_payload = { 
 			"searchString" : searchString
@@ -152,3 +160,8 @@ exports.fetchProductDetails = function(req,res){
 		}  
 	});
 };
+
+
+	
+	
+
