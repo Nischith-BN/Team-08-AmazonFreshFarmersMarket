@@ -81,16 +81,22 @@ app.post('/postReview',customer.postReview);//Bhargav
 
 //farmers
 //app.post('/listFarmers',farmer.listFarmers);
-app.post('/amendFarmerDetails',farmer.amendFarmerDetails);
+app.post('/amendFarmerDetails',farmer.amendFarmerDetails);//
 //app.post('/searchFarmer',farmer.searchFarmer);
-app.post('/fetchFarmerDetails',farmer.fetchFarmerDetails);
+app.post('/fetchFarmerDetails',farmer.fetchFarmerDetails);// input:farmerId whole objects of particular farmer(approved products)
 
 //product
 app.post('/createProduct',product.createProduct);
 app.post('/deleteProduct',product.deleteProduct);
+<<<<<<< Updated upstream
 app.get('/listProducts',product.listProducts);//integration pending
 app.get('/listAllProducts',product.listAllProducts);//integration pending
 app.get('/viewProduct',product.viewProduct);//integration pending
+=======
+app.get('/listProducts',product.listProducts);//list products for particular farmers
+app.get('/listAllProducts',product.listAllProducts);//list all products for customers
+app.get('/viewProduct',product.viewProduct);
+>>>>>>> Stashed changes
 app.post('/amendProductDetails',product.amendProductDetails);
 app.post('/searchProduct',product.searchProduct);
 app.post('/fetchProductDetails',product.fetchProductDetails);
