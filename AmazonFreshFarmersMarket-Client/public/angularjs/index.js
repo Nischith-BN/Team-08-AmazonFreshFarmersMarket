@@ -1,4 +1,4 @@
-var amazonfresh = angular.module('amazonfresh', [ 'ui.router' ]);
+var amazonfresh = angular.module('amazonfresh', [ 'ui.router','angular.filter']);
 amazonfresh.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 	$stateProvider.state('login', {	
@@ -34,6 +34,17 @@ amazonfresh.config(function($stateProvider, $urlRouterProvider, $locationProvide
             },
 		}
 	})
+	.state('farmerdescription',{
+		url:'/farmerDescription',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'content': {
+            	 templateUrl : 'templates/farmeradditionaldetails.html',
+            },
+		}
+	})
 	.state('adminsuccessful',{
 		url:'/afterAdminLogin',
 		views: {
@@ -42,6 +53,50 @@ amazonfresh.config(function($stateProvider, $urlRouterProvider, $locationProvide
             },
             'adminhome': {
             	templateUrl: 'templates/adminhome.html'
+            },
+		}
+	})
+	.state('ridedetails',{
+		url:'/ridesDetails',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'ride': {
+            	templateUrl: 'templates/ridesearch.html'
+            },
+		}
+	})
+	.state('searchbill',{
+		url:'/searchBill',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'ride': {
+            	templateUrl: 'templates/searchbill.html'
+            },
+		}
+	})
+	.state('deliverydetails',{
+		url:'/deliveryDetails',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'ride': {
+            	templateUrl: 'templates/deliverydetails.html'
+            },
+		}
+	})
+	.state('customerdetails',{
+		url:'/customerDetails',
+		views: {
+            'header': {
+                templateUrl : 'templates/header.ejs',
+            },
+            'ride': {
+            	templateUrl: 'templates/viewcustomers.html'
             },
 		}
 	})

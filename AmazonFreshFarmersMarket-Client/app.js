@@ -47,32 +47,33 @@ if ('development' === app.get('env')) {
 //login
 app.get('/', routes.index);//Done - Tested
 app.get('/login', routes.index);//Done - Tested
-app.post('/afterLogin', login.afterLogin);//Pending - Mongo update,bcrypt
-app.post('/afterAdminLogin', login.afterAdminLogin);//Pending - Mongo update,bcrypt
+app.post('/afterLogin', login.afterLogin);//integration pending
+app.post('/afterAdminLogin', login.afterAdminLogin);//Done - Tested
 app.post('/logout', login.logout);//Pending - Testing,back navigation
 app.post('/createAccount',login.createAccount);//Done - Tested
 app.post('/saveAddress',login.saveAddress);//Done - Tested
-app.get('/saveCardDetails',login.saveCardDetails);//Pending - Mongo insert
-app.post('/saveFarmerDetails',login.saveFarmerDetails);//Pending - Mongo insert
-app.post('/deleteAccount',login.deleteAccount);
-
+app.post('/saveCardDetails',login.saveCardDetails);//Done - Tested
+app.post('/saveFarmerDetails',login.saveFarmerDetails);//Done - Tested
+app.post('/deleteAccount',login.deleteAccount);//integration pending
 //admin
 app.get('/listFarmerRequests',admin.listFarmerRequests);//Done - Tested
 app.get('/listProductRequests',admin.listProductRequests);//Done - Tested
 app.get('/listCustomerRequests',admin.listCustomerRequests);//Done - Tested
-app.post('/approveFarmer',admin.approveFarmer);//Pending - Mongo update
+app.post('/approveFarmer',admin.approveFarmer);//Done - Tested
 app.post('/approveProduct',admin.approveProduct);//Done - Tested
-app.post('/approveCustomer',admin.approveCustomer);//Pending - Mongo update
+app.post('/approveCustomer',admin.approveCustomer);//Done - Tested
 app.post('/rejectFarmer',admin.rejectFarmer);//Done - Tested
 app.post('/rejectProduct',admin.rejectProduct);//Done - Tested
 app.post('/rejectCustomer',admin.rejectCustomer);//Done - Tested
 
-app.get('/viewCustomerAccount',admin.viewCustomerAccount);//To check what is it
-app.get('/fetchStatisticsData',admin.fetchStatisticsData);
-app.get('/fetchDeliveryDetails',admin.fetchDeliveryDetails);
-app.get('/fetchRidesDetails',admin.fetchRidesDetails);
-app.get('/searchBillDetails',admin.searchBillDetails);
-app.get('/fetchBillDetails',admin.fetchBillDetails);
+app.get('/listAllCustomers',admin.listAllCustomers);//UI pending
+app.get('/fetchCustomerDetails',admin.fetchCustomerDetails);//UI pending
+app.get('/fetchReviewsByCustomer',admin.fetchReviewsByCustomer);//Pending
+
+app.post('/fetchStatisticsData',admin.fetchStatisticsData);//UI pending
+app.post('/fetchDeliveryDetails',admin.fetchDeliveryDetails);//UI pending
+app.post('/fetchRidesDetails',admin.fetchRidesDetails);//Done - Tested
+app.post('/searchBillDetails',admin.searchBillDetails);//Done - Tested
 
 //customer
 //app.post('/listCustomers',customer.listCustomers);
@@ -89,7 +90,7 @@ app.post('/createProduct',product.createProduct);
 app.post('/deleteProduct',product.deleteProduct);
 app.get('/listProducts',product.listProducts);//integration pending
 app.get('/listAllProducts',product.listAllProducts);//integration pending
-app.get('/viewProduct',product.viewProduct);
+app.get('/viewProduct',product.viewProduct);//integration pending
 app.post('/amendProductDetails',product.amendProductDetails);
 app.post('/searchProduct',product.searchProduct);
 app.post('/fetchProductDetails',product.fetchProductDetails);

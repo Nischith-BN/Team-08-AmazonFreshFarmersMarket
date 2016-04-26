@@ -58,7 +58,7 @@ amazonfresh.controller('signup', function($scope, $http,$rootScope,$state) {
 			{
 				if($rootScope.category=='farmer')
 				{
-					$state.transitionTo('login');
+					$state.transitionTo('farmerdescription');
 				}
 				else if($rootScope.category=='customer')
 					$state.transitionTo("cardDetails");
@@ -91,6 +91,28 @@ amazonfresh.controller('signup', function($scope, $http,$rootScope,$state) {
 		}).error(function(error) {
 			$scope.unexpected_error = false;
 			$scope.invalid_login = true;
+		});
+	};
+	
+	$scope.farmerhome = function() {
+		$http({
+			method : "POST",
+			url : '/saveFarmerDescription',
+			data : {
+				"description" : document.getElementById("description").value,
+				"image" : document.getElementById("hiddenimage").value,
+				"video" : document.getElementById("hiddenvideo").value,	
+			}
+		}).success(function(data) {
+			if (data.statusCode == 401) {
+				$scope.invalid_login = false;
+			}
+			else
+			{
+				$state.transitionTo('login');
+			}
+		}).error(function(error) {
+			
 		});
 	};
 })

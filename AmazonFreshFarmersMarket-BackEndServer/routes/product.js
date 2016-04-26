@@ -43,8 +43,9 @@ exports.handle_listProducts_request = function(msg, callback){
 exports.handle_listAllProducts_request = function(msg, callback){
 	console.log("exports.handle_listAllProducts_request ~~~~~~~~~~~");
 	var json_response = {};
+	var approved = 1;
 	
-	var query = "select * from amazonfresh.products";
+	var query = "select * from amazonfresh.products where approved = '" + approved +"'";
 	
 	console.log(query);
 	mysql.fetchData(function(error, results) {

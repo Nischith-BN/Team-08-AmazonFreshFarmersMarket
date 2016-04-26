@@ -205,6 +205,42 @@ cnn.on('ready', function(){
 		});
 	});
 
+	cnn.queue('listAllCustomers_queue', function(q){
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			admin.handle_listAllCustomers_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});
+	
+	cnn.queue('fetchCustomerDetails_queue', function(q){		
+		q.subscribe(function(message, headers, deliveryInfo, m){
+			admin.handle_fetchCustomerDetails_request(message, function(err,res){
+				cnn.publish(m.replyTo, res, {
+					contentType:'application/json',
+					contentEncoding:'utf-8',
+					correlationId:m.correlationId
+				});
+			});
+		});
+	});
+	
+	cnn.queue('fetchReviewsByCustomer_queue', function(q){		
+	q.subscribe(function(message, headers, deliveryInfo, m){
+		admin.handle_fetchReviewsByCustomer_request(message, function(err,res){
+			cnn.publish(m.replyTo, res, {
+				contentType:'application/json',
+				contentEncoding:'utf-8',
+				correlationId:m.correlationId
+			});
+		});
+	});
+});
+	
 	cnn.queue('fetchProductDetails_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
 			product.handle_fetchProductDetails_request(message, function(err,res){
@@ -459,18 +495,6 @@ cnn.on('ready', function(){
 	cnn.queue('searchBillDetails_queue', function(q){		
 		q.subscribe(function(message, headers, deliveryInfo, m){
 			admin.handle_searchBillDetails_request(message, function(err,res){
-				cnn.publish(m.replyTo, res, {
-					contentType:'application/json',
-					contentEncoding:'utf-8',
-					correlationId:m.correlationId
-				});
-			});
-		});
-	});
-
-	cnn.queue('fetchBillDetails_queue', function(q){		
-		q.subscribe(function(message, headers, deliveryInfo, m){
-			admin.handle_fetchBillDetails_request(message, function(err,res){
 				cnn.publish(m.replyTo, res, {
 					contentType:'application/json',
 					contentEncoding:'utf-8',

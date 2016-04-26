@@ -1,3 +1,4 @@
+var bcrypt = require('bcrypt-nodejs');
 var ejs = require("ejs");
 var mq_client = require('../rpc/client');
 
@@ -7,23 +8,27 @@ exports.createAccount = function(req,res)
 	var lastName = req.param("lastName");
 	var email = req.param("email");
 	var password = req.param("password");
+	var hashedPassword = bcrypt.hashSync(password);
 	var category = req.param("category");
 
 	var msg_payload = { 
 			"email" : email
 	};
 
+	console.log("exports.createAccount");
 	mq_client.make_request('createAccount_queue',msg_payload, function(err,results){
+		console.log("exports.createAccount " + results);
 		if(err){
 			throw err;
 		}
 		else 
 		{
+			
 			if(results.statusCode == 200){
 				req.session.email = email;
 				req.session.firstName = firstName;
 				req.session.lastName = lastName;
-				req.session.password = password;
+				req.session.password = hashedPassword;
 				req.session.category = category;
 			}
 			res.send(results);						
@@ -33,6 +38,7 @@ exports.createAccount = function(req,res)
 
 exports.saveAddress = function(req,res)
 {
+	console.log("exports.saveAddress ");
 	var results = {};
 	var streetAddress = req.param("streetAddress");
 	var city = req.param("city");
@@ -54,6 +60,7 @@ exports.saveAddress = function(req,res)
 
 exports.saveCardDetails = function(req,res)
 {
+	console.log("???????????????????????exports.saveCardDetails ");
 	var cardNumber = req.param("cardNumber");
 	var cardHolderName = req.param("cardHolderName");
 	var cardExpirationMonth = req.param("cardExpirationMonth");
@@ -79,6 +86,7 @@ exports.saveCardDetails = function(req,res)
 	};
 
 	mq_client.make_request('saveCardDetails_queue',msg_payload, function(err,results){
+		console.log("exports.saveCardDetails " + results);
 		if(err){
 			throw err;
 		}
@@ -91,6 +99,7 @@ exports.saveCardDetails = function(req,res)
 
 exports.saveFarmerDetails = function(req,res)
 {
+	console.log("exports.saveFarmerDetails ");
 	var video = req.param("video");
 	var image = req.param("image");
 	var description = req.param("description");
@@ -112,13 +121,14 @@ exports.saveFarmerDetails = function(req,res)
 			"image" : image,
 			"description" : description			
 	};
-
 	mq_client.make_request('saveFarmerDetails_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
 		else 
 		{
+			console.log("######################################## Success Middleware");
+			console.log(results);
 			res.send(results);						
 		}  
 	});	

@@ -158,14 +158,60 @@ exports.rejectCustomer = function(req,res){
 	});
 };
 
-exports.viewCustomerAccount = function(req,res){
+exports.listAllCustomers = function(req,res){
+
+	console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+	var msg_payload = { };
+
+	mq_client.make_request('listAllCustomers_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});
+};
+
+
+
+
+
+
+
+
+
+
+
+exports.fetchCustomerDetails = function(req,res){
+
+	var customerId = "100000000";
+
+	var msg_payload = { 
+			"customerId" : customerId
+	};
+
+	mq_client.make_request('fetchCustomerDetails_queue',msg_payload, function(err,results){
+		if(err){
+			throw err;
+		}
+		else 
+		{
+			res.send(results);						
+		}  
+	});
+};
+
+exports.fetchReviewsByCustomer = function(req,res){
+
 	var customerId = req.param("customerId");
 
 	var msg_payload = { 
 			"customerId" : customerId
 	};
 
-	mq_client.make_request('viewCustomerAccount_queue',msg_payload, function(err,results){
+	mq_client.make_request('fetchReviewsByCustomer_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
@@ -177,30 +223,40 @@ exports.viewCustomerAccount = function(req,res){
 };
 
 exports.fetchStatisticsData = function(req,res){
-	var date = req.param("date");
-
+	console.log(exports.fetchDeliveryDetails);
+	var toDate = req.param("to");
+	var fromDate = req.param("from");
+	
+	console.log("toDate " + toDate + " fromDate " + fromDate);
+	
 	var msg_payload = { 
-			"date" : date
+			"toDate" : toDate,
+			"fromDate" : fromDate
 	};
-
+	console.log(msg_payload);
 	mq_client.make_request('fetchStatisticsData_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
 		else 
 		{
-			res.send(results);						
+			res.send(results);		
+			console.log(results);
 		}  
 	});
 };
 
 exports.fetchDeliveryDetails = function(req,res){
+	console.log(exports.fetchDeliveryDetails);
+	
 	var area = req.param("area");
 
 	var msg_payload = { 
 			"area" : area
 	};
 
+	console.log(msg_payload);
+	
 	mq_client.make_request('fetchDeliveryDetails_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
@@ -233,31 +289,17 @@ exports.fetchRidesDetails = function(req,res){
 };
 
 exports.searchBillDetails = function(req,res){
+	console.log("exports.searchBillDetails");
+	
+	var category = req.param("category");
 	var searchString = req.param("searchString");
 	
 	var msg_payload = { 
+			"category" : category,
 			"searchString" : searchString
 	};
-
+	console.log(msg_payload);
 	mq_client.make_request('searchBillDetails_queue',msg_payload, function(err,results){
-		if(err){
-			throw err;
-		}
-		else 
-		{
-			res.send(results);						
-		}  
-	});
-};
-
-exports.fetchBillDetails = function(req,res){
-	var searchString = req.param("searchString");
-	
-	var msg_payload = { 
-			"billingId" : billingId
-	};
-
-	mq_client.make_request('fetchBillDetails_queue',msg_payload, function(err,results){
 		if(err){
 			throw err;
 		}
